@@ -1,0 +1,14 @@
+- select a random album from the full list
+  - pretty it up babe
+  - fetch album data from spotify or something on display 
+
+- album selection options
+  - search by genre tag
+
+- add album
+  - fetch distinct from all columns for dropdown menus
+  - add new genre tag dialog
+
+- edit album from list
+  - edit dialog ?
+

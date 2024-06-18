@@ -1,0 +1,16 @@
+.albumdisplay {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.genrelist {
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+}
+
+.listitem {
+    margin-right: 40px;
+    margin-left: 40px;
+}

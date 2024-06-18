@@ -1,0 +1,58 @@
+.uploadform {
+    display: grid;
+    place-items: center;
+}
+
+.formdiv {
+    margin: 10px;
+    font-style: italic;
+    font-size: .7em;
+    display: flex;
+    flex-direction: column;
+}
+
+.formdivspec {
+    margin: 10px;
+    margin-top: 2em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.formdivmain {
+    float: left;
+    margin: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.formdivspacer {
+    margin: 10px;
+    margin-bottom: 2em;
+}
+
+.secdiv {
+    float: left;
+}
+
+.subdiv {
+    margin: 35%;
+}
+
+
+.uploadsubmit {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    margin: 10px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;    
+    transition: border-color 0.25s;
+  }
+.uploadsubmit:hover {
+    border-color: #a95dff;
+  }

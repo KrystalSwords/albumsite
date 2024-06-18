@@ -1,0 +1,6 @@
+.maindisplay {
+    position: static;
+    display: grid;
+    place-items: center;
+    margin-top: 40px;
+}

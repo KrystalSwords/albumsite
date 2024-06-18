@@ -1,0 +1,31 @@
+.artistcard {
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    width: 300px;
+    margin: 20px;
+    background-color: var(--card-color);
+    text-align: center;
+    transition: 200ms;
+}
+.artistcard:hover {
+    background-color: var(--card-color-hover);
+    border-color: var(--border-color-hover);
+    transition: 200ms;
+}
+
+.albumlist {
+    padding: 0px;
+    margin: 0px;
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+}
+
+.albumlistitem {
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    border-top: 1px solid #414141;
+}
+.albumlistitem:hover {
+    background-color: rgb(94, 94, 94);
+}
