@@ -14,18 +14,11 @@
 }
 
 .albumlist {
-    padding: 0px;
-    margin: 0px;
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    font-size: 0em;
+    transition: 200ms;
 }
 
-.albumlistitem {
-    text-align: center;
-    padding: 0px;
-    margin: 0px;
-    border-top: 1px solid #414141;
-}
-.albumlistitem:hover {
-    background-color: rgb(94, 94, 94);
-}
+.artistcard:hover > .albumlist {
+    font-size: 1em;
+    transition: 200ms;
+  }

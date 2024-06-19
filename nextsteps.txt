@@ -5,10 +5,16 @@
 - album selection options
   - search by genre tag
 
+- artist list
+  - filter by genre
+  - different hover color/indicator for Special Albums
+
 - add album
   - fetch distinct from all columns for dropdown menus
   - add new genre tag dialog
 
 - edit album from list
   - edit dialog ?
+  - click into from album
+
 

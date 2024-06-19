@@ -6,6 +6,9 @@ import Home from './components/Home';
 import NoMatch from './components/NoMatch';
 import ArtistList from './components/ArtistList';
 import UploadPage from './components/UploadPage';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   const [randomFetch, setRandomFetch] = useState(false);
@@ -95,7 +98,11 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="random" element={<RandomPage randomSubmit={randomSubmit} randomAlbumJson={randomAlbumJson} />} />
-          <Route path="artists" element={<ArtistList artistSubmit={artistSubmit} artistListJson={artistListJson} />} />
+          <Route path="artists" element={
+            <QueryClientProvider client={queryClient}>
+              <ArtistList artistSubmit={artistSubmit} artistListJson={artistListJson} />
+            </QueryClientProvider>
+          } />
           <Route path="upload" element={<UploadPage handleUploadSubmit={uploadSubmit} />} />
 
           {/* Using path="*"" means "match anything", so this route

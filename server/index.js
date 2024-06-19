@@ -33,7 +33,7 @@ app.get("/api/get/random", (req,res) => {
 });
 
 app.get("/api/get/artists", (req,res) => {
-    db.query("SELECT Artist, Album FROM asides", (err,result)=>{
+    db.query("SELECT Artist, Album, Year FROM asides", (err,result)=>{
         if(err) {
         console.log(err)
         } 
