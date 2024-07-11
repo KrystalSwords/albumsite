@@ -7,3 +7,7 @@
     margin-left: 10px;
     text-align: center;
 }
+
+.headerItemHide {
+    display: none;
+}

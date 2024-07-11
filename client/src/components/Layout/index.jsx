@@ -3,11 +3,11 @@ import { Outlet } from "react-router-dom";
 import "./styles.css";
 
 //COMPONENT that houses the header and mainpage
-export default function Layout() {
+export default function Layout({ token }) {
     return (
         <div>
             <div>
-                <Header />
+                <Header token={token} />
             </div>
             <div>
                 <Outlet />

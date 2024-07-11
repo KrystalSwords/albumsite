@@ -7,6 +7,10 @@ import NoMatch from './components/NoMatch';
 import ArtistList from './components/ArtistList';
 import UploadPage from './components/UploadPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import useToken from './hooks/useToken/useToken';
+import SignupPage from './components/SignupPage';
+import StatsPage from './components/StatsPage';
+import LoginPage from './components/LoginPage';
 
 const queryClient = new QueryClient();
 
@@ -14,25 +18,9 @@ function App() {
   const [randomFetch, setRandomFetch] = useState(false);
   const [randomQuery, setRandomQuery] = useState(null);
   const [randomAlbumJson, setRandomAlbumJson] = useState(null);
-  const [artistFetch, setArtistFetch] = useState(false);
-  const [artistListJson, setArtistListJson] = useState([]);
   const [uploadFetch, setUploadFetch] = useState(false);
   const [albumToAdd, setAlbumToAdd] = useState(null);
-  
-  //full list submit
-  function artistSubmit() {
-    setArtistFetch(true);
-  }
-  
-  useEffect(() => {
-    if(artistFetch) {
-      fetch('http://localhost:3002/api/get/artists')
-        .then((response) => response.json())
-        .then(data => setArtistListJson(data))
-        .catch(error => console.error(error));
-    }
-    return () => setArtistFetch(false);
-  })
+  const { token, setToken } = useToken();
 
   //album recommendation submit
   const randomSubmit = (e) => {
@@ -95,15 +83,22 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout token={token} />}>
           <Route index element={<Home />} />
           <Route path="random" element={<RandomPage randomSubmit={randomSubmit} randomAlbumJson={randomAlbumJson} />} />
           <Route path="artists" element={
             <QueryClientProvider client={queryClient}>
-              <ArtistList artistSubmit={artistSubmit} artistListJson={artistListJson} />
+              <ArtistList />
             </QueryClientProvider>
           } />
-          <Route path="upload" element={<UploadPage handleUploadSubmit={uploadSubmit} />} />
+          <Route path="upload" element={<UploadPage handleUploadSubmit={uploadSubmit} token={token} setToken={setToken} />} />
+          <Route path="login" element={<LoginPage token={token} setToken={setToken}/>} />
+          <Route path='signup' element={<SignupPage />} />
+          <Route path="stats" element={
+            <QueryClientProvider client={queryClient}>
+              <StatsPage />
+            </QueryClientProvider>
+          } />
 
           {/* Using path="*"" means "match anything", so this route
           acts like a catch-all for URLs that we don't have explicit
