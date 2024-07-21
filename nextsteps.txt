@@ -11,15 +11,15 @@
 - add album
   - fetch distinct from all columns for dropdown menus
   - add new genre tag dialog
-  - secure login for submit/edit
 
 - edit album from list
-  - edit dialog ?
-  - click into from album
+  - lock edit by token
+
+- delete album
+  - re-query after successful delete
 
 - login/signup
   - roles for users
-  - add album in header hidden unless logged in
 
 - stats page
   - breakdown by genre

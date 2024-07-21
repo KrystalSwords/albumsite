@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "./styles.css";
-import { useMemo } from "react";
 
 //COMPONENT that contains a header for switching between features
 export default function Header({ token }) {

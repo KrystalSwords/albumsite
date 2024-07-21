@@ -9,7 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/login', async (req, res) => {
-    /* we need to
+    /* 
         retrieve pw from sql database with query
         bcrypt.compare to submitted password
         if true, return token
@@ -18,8 +18,6 @@ app.post('/login', async (req, res) => {
         if(err) {
             console.log(err)
         }
-        console.log(req.body, 1);
-        console.log(result, 2);
         bcrypt.compare(req.body.pass, result[0].password, function (err, response) {
             if (err) {
                 //handle err
@@ -33,14 +31,6 @@ app.post('/login', async (req, res) => {
             }
         })
     })
-
-    /*
-    try {
-        const userData = await db.query(`SELECT username, password FROM users WHERE username='${req.body.user}'`);
-        console.log(userData)
-    } catch (err) {
-        console.error(err);
-    }*/
     
 })
 
@@ -116,7 +106,7 @@ app.get("/api/get/album/:id", (req,res) => {
         console.log(err)
         } 
         const resultJson = res.json(result);
-        console.log("fetching album info");    
+        console.log("fetching album info of" + req.params.id);    
         return resultJson;
     });   
 });
@@ -143,18 +133,37 @@ app.post("/api/post/upload", (req,res) => {
     });  
 });
 
+app.post("/api/post/edit/:id", (req,res) => {
+    const newAlbum = req.body;
+    const uploadQuery = `UPDATE asides SET 
+                            Artist="${newAlbum.Artist}", 
+                            Album="${newAlbum.Album}", 
+                            Year='${newAlbum.Year}', 
+                            Genre1='${newAlbum.Genre1}', 
+                            Genre2='${newAlbum.Genre2}', 
+                            Genre3='${newAlbum.Genre3}', 
+                            Special='${isSpecial(newAlbum.Special)}'
+                         WHERE id=${req.params.id}`
+    console.log(uploadQuery);
+    db.query(uploadQuery, (err,result)=>{
+        if(err) {
+        console.log(err)
+        } 
+        const resultJson = res.json(result);
+        console.log(`edited record at ${result.insertedId}`);    
+        return resultJson;
+    });  
+});
+
+app.delete('/api/delete/:id', (req, res) => {
+    db.query(`DELETE FROM asides WHERE id=${req.params.id}`, (err,result) => {
+        if(err) {
+            console.log(err)
+        } 
+        console.log("deleting album at" + req.params.id);    
+    })
+});
+
 app.listen(PORT, ()=>{
     console.log(`Server is running on ${PORT}`)
 })
-
-/*if(result[0].password === passCheck) {
-            console.log("login attempt successful");
-            res.send({
-                token: 'testtoken'
-            })
-        } else {
-            console.log("login attempt failed");
-            res.send({
-                token: false
-            })
-        }*/

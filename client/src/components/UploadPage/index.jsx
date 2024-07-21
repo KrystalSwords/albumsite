@@ -4,7 +4,7 @@ import "./styles.css";
 import { useEffect } from "react";
 
 //COMPONENT that houses all upload pieces
-export default function UploadPage({ handleUploadSubmit, token, setToken }) {
+export default function UploadPage({ handleUploadSubmit, token, setToken, uploadQuery, albumToAdd, uploadFetch, setUploadFetch }) {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -16,7 +16,8 @@ export default function UploadPage({ handleUploadSubmit, token, setToken }) {
     return (
         <div>
             <h2>Add an Album</h2>
-            <UploadForm handleUploadSubmit={handleUploadSubmit} />
+            {!uploadFetch && <UploadForm handleUploadSubmit={handleUploadSubmit} />}
+            <div style={{ visibility: uploadFetch ? 'visible' : 'hidden' }}>{uploadQuery(albumToAdd, uploadFetch, setUploadFetch)}</div>
         </div>
     )
 }

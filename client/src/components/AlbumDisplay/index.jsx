@@ -1,13 +1,30 @@
+import { useState } from "react";
+import UploadForm from "../UploadForm";
+import { Button } from "@mui/joy";
+
 //COMPONENT that displays an album given the info
-export default function AlbumDisplay({ albumInfo }) {
+export default function AlbumDisplay({ albumInfo, editSubmit, isEditing, setIsEditing, deleteSubmit, token }) {
+
+    if(!albumInfo) {
+        return <div>
+            <h2>That album does not exist.</h2>
+        </div>
+    }
+
     return (
         <div>
-            <h2>{albumInfo.Album}</h2>
-            Artist: {albumInfo.Artist}<br />
-            Release Year: {albumInfo.Year}<br />
-            Genre Tags: {genreLister(albumInfo.Genre1, albumInfo.Genre2, albumInfo.Genre3)}<br />
-            {specialDisplay(albumInfo.Special)}
+            {token && <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>}
+            {token && <Button onClick={() => deleteSubmit(albumInfo.id)} >Delete</Button>}
+            {!isEditing && <div>
+                <h2>{albumInfo.Album}</h2>
+                Artist: {albumInfo.Artist}<br />
+                Release Year: {albumInfo.Year}<br />
+                Genre Tags: {genreLister(albumInfo.Genre1, albumInfo.Genre2, albumInfo.Genre3)}<br />
+                {specialDisplay(albumInfo.Special)}
+            </div>}
+            {isEditing && <UploadForm albumInfo={albumInfo} handleUploadSubmit={editSubmit} />}
         </div>
+            
     )
 }
 

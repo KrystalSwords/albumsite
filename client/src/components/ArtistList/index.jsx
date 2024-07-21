@@ -8,13 +8,16 @@ import Sheet from '@mui/joy/Sheet';
 import AlbumDisplay from "../AlbumDisplay";
 
 //COMPONENT that displays the list of artists 
-export default function ArtistList() {
-    const [open, setOpen] = useState(false);
+export default function ArtistList({ editSubmit, isEditing, setIsEditing, deleteSubmit, openModal, setOpenModal, token }) {
     const [albumData, setAlbumData] = useState([{ id: -1, Artist: "Default", Album: "Title", Year: 0, Special: '', Genre1: 'nullgenre'}]);
     const [albumDataSearch, setAlbumDataSearch] = useState(null);
     const handleOpen = (id) => {
-        setOpen(true);
-        setAlbumDataSearch(id)
+        setOpenModal(true);
+        setAlbumDataSearch(id);
+    }
+    const handleClose = () => {
+        setOpenModal(false);
+        setIsEditing(false);
     }
 
     useEffect(() => {
@@ -27,8 +30,7 @@ export default function ArtistList() {
         }
         console.log(albumData);
         return () => setAlbumDataSearch(null);
-      })
-
+    })
 
     return (
         <div>
@@ -36,8 +38,8 @@ export default function ArtistList() {
             <Modal
                 aria-labelledby="modal-title"
                 aria-describedby="modal-desc"
-                open={open}
-                onClose={() => setOpen(false)}
+                open={openModal}
+                onClose={handleClose}
                 sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
             >
                 <Sheet
@@ -58,7 +60,7 @@ export default function ArtistList() {
                         fontWeight="lg"
                         mb={1}
                     >
-                        <AlbumDisplay albumInfo={albumData[0]} />
+                        <AlbumDisplay albumInfo={albumData[0]} editSubmit={editSubmit} isEditing={isEditing} setIsEditing={setIsEditing} deleteSubmit={deleteSubmit} token={token} />
                     </Typography>
                 </Sheet>
             </Modal>
