@@ -4,7 +4,7 @@ import "./styles.css";
 export default function AlbumList({ albums, handleOpen }) {
     albums.sort((a, b) => {
         return (a.Year - b.Year);
-    })
+    }) // This is a data level concern, it belongs wherever you're handling the list of albums
     return (
         <ul className="albumlist">
             {albums.map((item) => 
