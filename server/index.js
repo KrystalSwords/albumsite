@@ -88,7 +88,7 @@ app.get("/api/get/artists", (req,res) => {
     });   
 });
 
-app.get("/api/get/genrelist", (req,res) => {
+app.get("/api/genres", (req,res) => {
     const genrequery = "SELECT DISTINCT Genre1 FROM asides WHERE Genre1 IS NOT NULL AND Genre1 <> '' UNION SELECT DISTINCT Genre2 FROM asides WHERE Genre2 IS NOT NULL AND Genre2 <> '' UNION SELECT DISTINCT Genre3 FROM asides WHERE Genre3 IS NOT NULL AND Genre3 <> '';"
     db.query(genrequery, (err,result)=>{
         if(err) {
@@ -99,6 +99,9 @@ app.get("/api/get/genrelist", (req,res) => {
         return resultJson;
     });   
 });
+
+// First of all this top level .get function would be in server/routes/album.js
+// Rather than calling db.query, call a funtion imported from models/album.js (which calls db.query internally)
 
 app.get("/api/get/album/:id", (req,res) => {
     db.query(`SELECT * FROM asides WHERE id='${req.params.id}'`, (err,result)=>{
