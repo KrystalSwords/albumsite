@@ -50,6 +50,7 @@ export default function UploadForm ({ handleUploadSubmit, albumInfo }) {
     )
 }
 
+// do this in your backend or ideally in the DB itself (convert to boolean column)
 function getSpecial(albumInfo) {
     if(albumInfo) {
         return albumInfo.Special === "*" ? true : false;
