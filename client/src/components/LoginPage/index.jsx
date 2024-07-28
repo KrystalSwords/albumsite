@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-async function loginUser(credentials) {
+async function loginUser(credentials) { // move to api/user.js 
     return fetch('http://localhost:3002/login', {
         method: 'POST',
         headers: {
@@ -24,7 +24,7 @@ export default function LoginPage({ token, setToken }) {
     }, [token])
     
 
-    const handleSubmit = async e => {
+    const handleSubmit = async e => { // use an HTML request library here and extract this to api/user.js - same pattern as App.jsx
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);

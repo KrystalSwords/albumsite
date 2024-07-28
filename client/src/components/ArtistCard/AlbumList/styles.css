@@ -12,6 +12,6 @@
     z-index: 10;
 }
 .albumlistitem:hover {
-    background-color: rgb(94, 94, 94);
+    background-color: rgb(94, 94, 94); // variableify and standardize all your colors
     z-index: 10;
 }

@@ -9,7 +9,7 @@ import AlbumDisplay from "../AlbumDisplay";
 
 //COMPONENT that displays the list of artists 
 export default function ArtistList({ editSubmit, isEditing, setIsEditing, deleteSubmit, openModal, setOpenModal, token }) {
-    const [albumData, setAlbumData] = useState([{ id: -1, Artist: "Default", Album: "Title", Year: 0, Special: '', Genre1: 'nullgenre'}]);
+    const [albumData, setAlbumData] = useState([{ id: -1, Artist: "Default", Album: "Title", Year: 0, Special: '', Genre1: 'nullgenre'}]); // downcase all of these. genres: ['nullgenre'], special: false
     const [albumDataSearch, setAlbumDataSearch] = useState(null);
     const handleOpen = (id) => {
         setOpenModal(true);
@@ -20,7 +20,7 @@ export default function ArtistList({ editSubmit, isEditing, setIsEditing, delete
         setIsEditing(false);
     }
 
-    useEffect(() => {
+    useEffect(() => {  // this useEffect isnt needed - follow similar pattern as in App.jsx to remove it. Import api function etc etc
         if(albumDataSearch != null) {
             const queryURL = 'http://localhost:3002/api/get/album/' + albumDataSearch;
             fetch(queryURL)
@@ -92,7 +92,10 @@ function listQuery(handleOpen) {
     )
 }
 
-function artistSort(artistlist) {
+function artistSort(artistlist) { // If this is how you always want your albums sorted when retrieving them from the backend, do this in your api function while you're preparing the response
+                                // If this sort is very particular to this component, this function is fine living here
+    // This should be called groupByArtist or groupAlbumsByArtist
+    // Use lodash here https://www.geeksforgeeks.org/lodash-_-groupby-method/
     let uniqueartists = [];
     let artistalbumset = [];
     artistlist.forEach((album) => {

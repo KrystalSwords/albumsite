@@ -1,0 +1,22 @@
+file/folder structure
+for server, copy the express pattern from lizzie's bootcamp project: https://github.com/lizmeks/conways-canvas-server
+
+client
+  src
+    components (only one folder deep! no nesting of subcomponents within components)
+    pages
+    assets
+    hooks
+server
+  index.js  -- imports functions from routes
+  models    -- these files represent your DOMAIN OBJECTS - the most important concepts of your app. One to one relationship with your db tables
+    album   (id, artist_id, name, year, special)
+    artist  (id, name)
+    user    (name, password_hash)
+    genre       (name)
+    albumGenre  (this is a join table: album_id, genre_id)
+  routes   -- these files represent how the backend interacts with the frontend. One folder per domain object that the frontend interacts with directly
+    album
+    user    
+    genre
+    
