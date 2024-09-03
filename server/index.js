@@ -62,10 +62,19 @@ function isSpecial(specialstring) {
 
 app.get("/api/get/random", (req,res) => {
     let queryConstruct = "SELECT * FROM asides ";
-    if(req.query.special === "on") {
-        queryConstruct = queryConstruct + "WHERE Special='*'"
+    if(req.query.special || req.query.genre) {
+        queryConstruct = queryConstruct + "WHERE "
     }
-    queryConstruct = queryConstruct + "ORDER BY RAND() LIMIT 1";
+    if(req.query.special) {
+        queryConstruct = queryConstruct + "Special='*'"
+    }
+    if(req.query.special && req.query.genre !== "") {
+        queryConstruct = queryConstruct + " AND "
+    }
+    if(req.query.genre) {
+        queryConstruct = queryConstruct + `(Genre1='${req.query.genre}' OR Genre2='${req.query.genre}' OR Genre3='${req.query.genre}')`
+    }
+    queryConstruct = queryConstruct + " ORDER BY RAND() LIMIT 1";
     db.query(queryConstruct, (err,result)=>{
         if(err) {
         console.log(err)

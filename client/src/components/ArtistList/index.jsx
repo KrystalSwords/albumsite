@@ -6,35 +6,30 @@ import ModalClose from '@mui/joy/ModalClose';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import AlbumDisplay from "../AlbumDisplay";
+import { fetchAlbum, fetchArtistList } from "../../api";
 
 //COMPONENT that displays the list of artists 
 export default function ArtistList({ editSubmit, isEditing, setIsEditing, deleteSubmit, openModal, setOpenModal, token }) {
     const [albumData, setAlbumData] = useState([{ id: -1, Artist: "Default", Album: "Title", Year: 0, Special: '', Genre1: 'nullgenre'}]);
-    const [albumDataSearch, setAlbumDataSearch] = useState(null);
+    const { isPending, isError, data, error } = useQuery({
+        queryKey: ['artistlist'],
+        queryFn: fetchArtistList,
+        refetchOnMount: true
+    })
     const handleOpen = (id) => {
+        fetchAlbum(id).then(data => setAlbumData(data));
         setOpenModal(true);
-        setAlbumDataSearch(id);
     }
     const handleClose = () => {
         setOpenModal(false);
         setIsEditing(false);
     }
 
-    useEffect(() => {
-        if(albumDataSearch != null) {
-            const queryURL = 'http://localhost:3002/api/get/album/' + albumDataSearch;
-            fetch(queryURL)
-                .then((response) => response.json())
-                .then(data => setAlbumData(data))
-                .catch(error => console.error(error));
-        }
-        console.log(albumData);
-        return () => setAlbumDataSearch(null);
-    })
-
     return (
         <div>
-            {listQuery(handleOpen)}
+            {isPending && <span>Loading...</span>}
+            {isError && <span>Error: {error.message}</span>}
+            {data && <ArtistDisplay artistList={artistSort(data)} handleOpen={handleOpen} />}
             <Modal
                 aria-labelledby="modal-title"
                 aria-describedby="modal-desc"
@@ -66,29 +61,6 @@ export default function ArtistList({ editSubmit, isEditing, setIsEditing, delete
             </Modal>
         </div>
         
-    )
-}
-
-function listQuery(handleOpen) {
-    const { isPending, isError, data, error } = useQuery({
-        queryKey: ['artistlist'],
-        queryFn: async () => {
-            const response = await fetch('http://localhost:3002/api/get/artists');
-            if(!response.ok) {
-                throw new Error('list query failed')
-            }
-            return response.json()
-        },
-        refetchOnMount: true
-    })
-    if (isPending) {
-        return <span>Loading...</span>
-    }
-    if (isError) {
-        return <span>Error: {error.message}</span>
-    }
-    return (
-            <ArtistDisplay artistList={artistSort(data)} handleOpen={handleOpen} /> 
     )
 }
 

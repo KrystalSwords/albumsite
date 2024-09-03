@@ -13,7 +13,7 @@
   - add new genre tag dialog
 
 - edit album from list
-  - lock edit by token
+  - edit query ?
 
 - delete album
   - re-query after successful delete
@@ -24,3 +24,5 @@
 - stats page
   - breakdown by genre
   - graph of year released
+
+- switch special to boolean backend

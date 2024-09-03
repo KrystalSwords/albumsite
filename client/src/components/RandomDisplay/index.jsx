@@ -3,6 +3,7 @@ import "./styles.css";
 
 //COMPONENT that displays the random album selected
 export default function RandomDisplay({ albumJson }) {
+    console.log(albumJson);
     return (
         <div className="albumdisplay">
             <h1>{getArtist(albumJson)} - {getAlbum(albumJson)}</h1>
