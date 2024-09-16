@@ -18,22 +18,18 @@ function App() {
   const [ isEditing, setIsEditing ] = useState(false);
   const [ openModal, setOpenModal ] = useState(false);
   const { token, setToken } = useToken();
-  //const navigate = useNavigate();
 
-  //album recommendation submit
-  const randomSubmit = (genre, special) => {
+  const onRandomSubmit = (genre, special) => {
     event.preventDefault();
     fetchRandomAlbum(genre, special).then(album => setRandomAlbum(album))
   }
 
-    //edit an album submit
-    const editSubmit = (albumInfo) => {
+    const onEditSubmit = (albumInfo) => {
       setIsEditing(false);
       fetchEditAlbum(albumInfo).then(console.log("edited album " + albumInfo.id))
     }
 
-    //delete an album submit 
-    const deleteSubmit = (albumId) => {
+    const onDeleteSubmit = (albumId) => {
       setOpenModal(false);
       fetchDeleteAlbum(albumId).then(console.log("deleted album " + albumId))
     }
@@ -43,16 +39,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout token={token} />}>
           <Route index element={<Home />} />
-          <Route path="random" element={<RandomPage randomSubmit={randomSubmit} randomAlbumJson={randomAlbum} />} />
-          <Route path="artists" element={<ArtistList editSubmit={editSubmit} isEditing={isEditing} setIsEditing={setIsEditing} deleteSubmit={deleteSubmit} openModal={openModal} setOpenModal={setOpenModal} token={token} />} />
+          <Route path="random" element={<RandomPage onRandomSubmit={onRandomSubmit} albumInfo={randomAlbum} />} />
+          <Route path="artists" element={<ArtistList onEditSubmit={onEditSubmit} isEditing={isEditing} setIsEditing={setIsEditing} onDeleteSubmit={onDeleteSubmit} openModal={openModal} setOpenModal={setOpenModal} token={token} />} />
           <Route path="upload" element={<UploadPage token={token} />} />
-          <Route path="login" element={<LoginPage token={token} setToken={setToken}/>} />
-          <Route path='signup' element={<SignupPage />} />
+          <Route path="login" element={<LoginPage token={token} setToken={setToken} />} />
+          {/*<Route path='signup' element={<SignupPage />} />*/}
           <Route path="stats" element={<StatsPage />} />
-
-          {/* Using path="*"" means "match anything", so this route
-          acts like a catch-all for URLs that we don't have explicit
-          routes for. */}
           <Route path="*" element={<NoMatch />} />
         </Route>
       </Routes>

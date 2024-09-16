@@ -3,7 +3,7 @@ import UploadForm from "../UploadForm";
 import { Button } from "@mui/joy";
 
 //COMPONENT that displays an album given the info
-export default function AlbumDisplay({ albumInfo, editSubmit, isEditing, setIsEditing, deleteSubmit, token }) {
+export default function AlbumDisplay({ albumInfo, onEditSubmit, isEditing, setIsEditing, onDeleteSubmit, token }) {
 
     if(!albumInfo) {
         return <div>
@@ -14,7 +14,7 @@ export default function AlbumDisplay({ albumInfo, editSubmit, isEditing, setIsEd
     return (
         <div>
             {token && <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>}
-            {token && <Button onClick={() => deleteSubmit(albumInfo.id)} >Delete</Button>}
+            {token && <Button onClick={() => onDeleteSubmit(albumInfo.id)} >Delete</Button>}
             {!isEditing && <div>
                 <h2>{albumInfo.Album}</h2>
                 Artist: {albumInfo.Artist}<br />
@@ -22,7 +22,7 @@ export default function AlbumDisplay({ albumInfo, editSubmit, isEditing, setIsEd
                 Genre Tags: {genreLister(albumInfo.Genre1, albumInfo.Genre2, albumInfo.Genre3)}<br />
                 {specialDisplay(albumInfo.Special)}
             </div>}
-            {isEditing && <UploadForm albumInfo={albumInfo} handleUploadSubmit={editSubmit} />}
+            {isEditing && <UploadForm albumInfo={albumInfo} handleUploadSubmit={onEditSubmit} />}
         </div>
             
     )

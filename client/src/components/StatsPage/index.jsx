@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 //COMPONENT that displays the stats
 export default function StatsPage() {
-    return <div>{genreListQuery()}</div>
+    return <div>under construction</div>
 }
 
 function genreListQuery() {

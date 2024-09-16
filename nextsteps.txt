@@ -13,7 +13,7 @@
   - add new genre tag dialog
 
 - edit album from list
-  - edit query ?
+  - requery after successful edit 
 
 - delete album
   - re-query after successful delete

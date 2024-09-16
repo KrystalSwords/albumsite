@@ -18,11 +18,11 @@ export default function UploadPage({ token }) {
         setAlbumInfo(albumInfo);
     }
 
-    /*useEffect(() => {
+    useEffect(() => {
         if(!token) {
             return navigate('/login')
         }
-    }, [token])*/
+    }, [token])
 
     return (
         <div>

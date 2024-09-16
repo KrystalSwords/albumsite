@@ -9,7 +9,7 @@ import AlbumDisplay from "../AlbumDisplay";
 import { fetchAlbum, fetchArtistList } from "../../api";
 
 //COMPONENT that displays the list of artists 
-export default function ArtistList({ editSubmit, isEditing, setIsEditing, deleteSubmit, openModal, setOpenModal, token }) {
+export default function ArtistList({ onEditSubmit, isEditing, setIsEditing, onDeleteSubmit, openModal, setOpenModal, token }) {
     const [albumData, setAlbumData] = useState([{ id: -1, Artist: "Default", Album: "Title", Year: 0, Special: '', Genre1: 'nullgenre'}]);
     const { isPending, isError, data, error } = useQuery({
         queryKey: ['artistlist'],
@@ -55,7 +55,7 @@ export default function ArtistList({ editSubmit, isEditing, setIsEditing, delete
                         fontWeight="lg"
                         mb={1}
                     >
-                        <AlbumDisplay albumInfo={albumData[0]} editSubmit={editSubmit} isEditing={isEditing} setIsEditing={setIsEditing} deleteSubmit={deleteSubmit} token={token} />
+                        <AlbumDisplay albumInfo={albumData[0]} onEditSubmit={onEditSubmit} isEditing={isEditing} setIsEditing={setIsEditing} onDeleteSubmit={onDeleteSubmit} token={token} />
                     </Typography>
                 </Sheet>
             </Modal>

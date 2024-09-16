@@ -1,43 +1,37 @@
-async function signupUser(credentials) {
-    return fetch('http://localhost:3002/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-}
+import { useState } from "react";
+import { signupUser } from "../../api";
 
 //COMPONENT that displays the main signup stuff
 export default function SignupPage() {
+    const [ user, setUser ] = useState(null);
+    const [ pass, setPass ] = useState(null);
+    const [ passcheck, setPasscheck ] = useState(null);
+    const onUsernameChange = e => setUser(e.target.value);
+    const onPasswordChange = e => setPass(e.target.value);
+    const onPasscheckChange = e => setPasscheck(e.target.value);
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
-        if(formJson.pass != formJson.passcheck) {
+        if(pass != passcheck) {
             console.log('passwords do not match');
             return;
         }
-        const signupResponse = signupUser(formJson);
-        console.log(signupResponse);
+        signupUser({ user, pass }).then(response => console.log(response));
     }
 
     return (
         <form onSubmit={handleSubmit}>
             <label>
                 <p>Please enter your Username</p>
-                <input type="text" name="user" />
+                <input type="text" name="user" onChange={onUsernameChange} />
             </label>
             <label>
                 <p>Please enter a Password</p>
-                <input type="password" name="pass" />
+                <input type="password" name="pass" onChange={onPasswordChange} />
             </label>
             <label>
                 <p>Please re-enter your password for confirmation</p>
-                <input type="password" name="passcheck" />
+                <input type="password" name="passcheck" onChange={onPasscheckChange} />
             </label>
             <div>
                 <button type="submit">Submit</button>

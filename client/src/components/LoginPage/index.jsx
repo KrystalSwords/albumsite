@@ -1,21 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-
-async function loginUser(credentials) {
-    return fetch('http://localhost:3002/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-}
+import { loginUser } from "../../api";
 
 //COMPONENT that houses the entire login screen
 export default function LoginPage({ token, setToken }) {
+    const [ user, setUser ] = useState(null);
+    const [ pass, setPass ] = useState(null);
     const navigate = useNavigate();
+    const onUsernameChange = e => {
+        setUser(e.target.value);
+    }
+    const onPasswordChange = e => {
+        setPass(e.target.value);
+    }
 
     useEffect(() => {
         if(token) {
@@ -24,28 +21,23 @@ export default function LoginPage({ token, setToken }) {
     }, [token])
     
 
-    const handleSubmit = async e => {
+    const onLoginSubmit = async e => {
         e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
-        const token = await loginUser(formJson);
-        setToken(token);
+        loginUser({ user, pass }).then(data => setToken(data))
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <label>
                 <p>Username</p>
-                <input type="text" name="user" />
+                <input type="text" name="user" onChange={onUsernameChange} />
             </label>
             <label>
                 <p>Password</p>
-                <input type="password" name="pass" />
+                <input type="password" name="pass" onChange={onPasswordChange} />
             </label>
             <div>
-                <button type="submit">Submit</button>
+                <button onClick={onLoginSubmit} >Submit</button>
             </div>
         </form>
     )

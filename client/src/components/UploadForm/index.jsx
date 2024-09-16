@@ -75,11 +75,3 @@ export default function UploadForm ({ handleUploadSubmit, albumInfo }) {
         </div>
     )
 }
-
-function getSpecial(albumInfo) {
-    if(albumInfo) {
-        return albumInfo.Special === "*" ? true : false;
-    } else {
-        return false;
-    }
-}
